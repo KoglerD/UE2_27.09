@@ -1,29 +1,51 @@
 import java.beans.XMLDecoder;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class NumberTester {
 
-    private int firstNumber;
-    private int secondNumber;
+    private File file;
+    private int[] firstNumber;
+    private int[] secondNumber;
     private NumberTest oddTester;
     private NumberTest primeTester;
     private NumberTest palindromeTester;
     private ArrayList<String> documentList;
 
     public NumberTester(String fileName) {
-        File file = new File(fileName);
+        this.file = new File(fileName);
+
+        boolean documentIsNotEmpty = true;
+        if (file.exists()) {
+
+            try (final BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+                int firstLineCounter = 0;
+                String line = br.readLine();
+                firstLineCounter = Integer.parseInt(line);
+                firstNumber = new int[firstLineCounter];
+                secondNumber = new int[firstLineCounter];
+                int index = 0;
+                while (line != null && firstLineCounter != 0) {
+                    line = br.readLine();
+                    String[] split = line.split(" ");
+
+                    firstNumber[index] = Integer.parseInt(split[0]);
+                    secondNumber[index] = Integer.parseInt(split[1]);
+                    index++;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Datei " + file.getName() + " ist nicht vorhanden");
+        }
     }
 
-    public int getFirstNumber() {
-        return firstNumber;
-    }
-
-    public int getSecondNumber() {
-        return secondNumber;
-    }
 
     public NumberTest getOddTester() {
         return oddTester;
@@ -54,22 +76,6 @@ public class NumberTester {
     }
 
     public void testFile() {
-        boolean documentIsNotEmpty = true;
-        if (file.exists()) {
-
-            try (final BufferedReader br = new BufferedReader(new FileReader(file))) {
-                while (documentIsNotEmpty) {
-                    String line = br.readLine();
-                    String[] split = line.split(" ");
-                    firstNumber = Integer.parseInt(split[0]);
-                    secondNumber = Integer.parseInt(split[1]);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            System.out.println("Datei " + file.getName() + " ist nicht vorhanden");
-        }
+        
     }
 }
