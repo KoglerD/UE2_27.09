@@ -76,6 +76,16 @@ public class NumberTester {
     }
 
     public void testFile() {
-        
+        for (int i = 0; i < firstNumber.length; i++) {
+            if (firstNumber[i] == 1) {
+
+            } else if (firstNumber[i] == 1) {
+
+            } else if (firstNumber[i] == 1) {
+
+            } else {
+                
+            }
+        }
     }
 }
