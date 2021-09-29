@@ -14,6 +14,7 @@ public class NumberTester {
     private NumberTest primeTester;
     private NumberTest palindromeTester;
     private int[] sNumberArray;
+    private int[] fNumberArray;
 
     public NumberTester(String fileName) {
         this.file = new File(fileName);
@@ -27,6 +28,7 @@ public class NumberTester {
                 firstLineCounter = Integer.parseInt(line);
                 int index = 0;
                 sNumberArray = new int[firstLineCounter];
+                fNumberArray = new int[firstLineCounter];
                 while (line != null && firstLineCounter != 0) {
                     line = br.readLine();
                     String[] split = line.split(" ");
@@ -34,6 +36,7 @@ public class NumberTester {
                     firstNumber = Integer.parseInt(split[0]);
                     secondNumber = Integer.parseInt(split[1]);
                     sNumberArray[index] = secondNumber;
+                    fNumberArray[index] = firstNumber;
                     if (firstNumber == 1) {
                         oddTester = (secondNumber) -> {
                             if (secondNumber % 2 == 0) {
@@ -125,9 +128,29 @@ public class NumberTester {
         boolean pr = false;
         boolean pa = false;
         for (int i = 0; i < sNumberArray.length; i++) {
-            od = oddTester.testNumber(sNumberArray[i]);
-            pr = primeTester.testNumber(sNumberArray[i]);
-            pa = palindromeTester.testNumber(sNumberArray[i]);
+
+            if (fNumberArray[i] == 1){
+                od = oddTester.testNumber(sNumberArray[i]);
+                if (od == true){
+                    System.out.println("GERADE");
+                }else{
+                    System.out.println("UNGERADE");
+                }
+            }else if(fNumberArray[i] == 2){
+                pr = primeTester.testNumber(sNumberArray[i]);
+                if (pr == true){
+                    System.out.println("PRIME");
+                }else{
+                    System.out.println("NOPRIME");
+                }
+            }else if (fNumberArray[i] == 3){
+                pa = palindromeTester.testNumber(sNumberArray[i]);
+                if (pa == true){
+                    System.out.println("PALINDROME");
+                }else{
+                    System.out.println("NOPALINDROME");
+                }
+            }
         }
 
 
