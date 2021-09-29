@@ -27,10 +27,9 @@ public class NumberTester {
                 String line = br.readLine();
                 firstLineCounter = Integer.parseInt(line);
                 int index = 0;
-                sNumberArray = new int[firstLineCounter];
-                fNumberArray = new int[firstLineCounter];
-                while (line != null && firstLineCounter != 0) {
-                    line = br.readLine();
+                sNumberArray = new int[firstLineCounter++];
+                fNumberArray = new int[firstLineCounter++];
+                while ((line=br.readLine()) != null && firstLineCounter != 0 && index != firstLineCounter) {
                     String[] split = line.split(" ");
 
                     firstNumber = Integer.parseInt(split[0]);
@@ -56,8 +55,8 @@ public class NumberTester {
                                 allList.add(i);
                             }
 
-                            for (int i = 2; i < (allList.size()); i++) {
-                                for (int j = 1; j < (allList.size()); j++) {
+                            for (int i = 2; i < allList.size(); i++) {
+                                for (int j = 2; j < (allList.size()); j++) {
                                     if (allList.contains(i * j)) {
                                         allList.remove((Integer) (i * j));
                                     }
@@ -129,28 +128,29 @@ public class NumberTester {
         boolean pa = false;
         for (int i = 0; i < sNumberArray.length; i++) {
 
-            if (fNumberArray[i] == 1){
+            if (fNumberArray[i] == 1) {
                 od = oddTester.testNumber(sNumberArray[i]);
-                if (od == true){
+                if (od == true) {
                     System.out.println("GERADE");
-                }else{
+                } else {
                     System.out.println("UNGERADE");
                 }
-            }else if(fNumberArray[i] == 2){
+            } else if (fNumberArray[i] == 2) {
                 pr = primeTester.testNumber(sNumberArray[i]);
-                if (pr == true){
+                if (pr == true) {
                     System.out.println("PRIME");
-                }else{
+                } else {
                     System.out.println("NOPRIME");
                 }
-            }else if (fNumberArray[i] == 3){
+            } else if (fNumberArray[i] == 3) {
                 pa = palindromeTester.testNumber(sNumberArray[i]);
-                if (pa == true){
+                if (pa == true) {
                     System.out.println("PALINDROME");
-                }else{
+                } else {
                     System.out.println("NOPALINDROME");
                 }
             }
+            System.out.println("------------------");
         }
 
 
