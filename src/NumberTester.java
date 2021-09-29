@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class NumberTester {
 
     private File file;
-    private int[] firstNumber;
-    private int[] secondNumber;
+    private int firstNumber;
+    private int secondNumber;
     private NumberTest oddTester;
     private NumberTest primeTester;
     private NumberTest palindromeTester;
@@ -18,7 +18,6 @@ public class NumberTester {
     public NumberTester(String fileName) {
         this.file = new File(fileName);
 
-        boolean documentIsNotEmpty = true;
         if (file.exists()) {
 
             try (final BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -26,15 +25,35 @@ public class NumberTester {
                 int firstLineCounter = 0;
                 String line = br.readLine();
                 firstLineCounter = Integer.parseInt(line);
-                firstNumber = new int[firstLineCounter];
-                secondNumber = new int[firstLineCounter];
                 int index = 0;
                 while (line != null && firstLineCounter != 0) {
                     line = br.readLine();
                     String[] split = line.split(" ");
 
-                    firstNumber[index] = Integer.parseInt(split[0]);
-                    secondNumber[index] = Integer.parseInt(split[1]);
+                    firstNumber = Integer.parseInt(split[0]);
+                    secondNumber = Integer.parseInt(split[1]);
+                    if (firstNumber == 1) {
+                        oddTester = (secondNumber) -> {
+                            if (secondNumber % 2 == 0){
+
+                                return true;
+                            }
+                            return false;
+                        };
+                    } else if (firstNumber == 2) {
+                        primeTester = (secondNumber) -> {
+                            return false;
+                        };
+                    } else if (firstNumber == 3) {
+                        palindromeTester = (secondNumber) -> {
+                            if (secondNumber % 2 == 0){
+                                return true;
+                            }
+                            return false;
+                        };
+                    } else {
+
+                    }
                     index++;
                 }
             } catch (Exception e) {
@@ -76,16 +95,6 @@ public class NumberTester {
     }
 
     public void testFile() {
-        for (int i = 0; i < firstNumber.length; i++) {
-            if (firstNumber[i] == 1) {
 
-            } else if (firstNumber[i] == 1) {
-
-            } else if (firstNumber[i] == 1) {
-
-            } else {
-                
-            }
-        }
     }
 }
