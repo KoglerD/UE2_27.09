@@ -13,7 +13,7 @@ public class NumberTester {
     private NumberTest oddTester;
     private NumberTest primeTester;
     private NumberTest palindromeTester;
-    private ArrayList<String> documentList;
+    private int[] sNumberArray;
 
     public NumberTester(String fileName) {
         this.file = new File(fileName);
@@ -26,15 +26,17 @@ public class NumberTester {
                 String line = br.readLine();
                 firstLineCounter = Integer.parseInt(line);
                 int index = 0;
+                sNumberArray = new int[firstLineCounter];
                 while (line != null && firstLineCounter != 0) {
                     line = br.readLine();
                     String[] split = line.split(" ");
 
                     firstNumber = Integer.parseInt(split[0]);
                     secondNumber = Integer.parseInt(split[1]);
+                    sNumberArray[index] = secondNumber;
                     if (firstNumber == 1) {
                         oddTester = (secondNumber) -> {
-                            if (secondNumber % 2 == 0){
+                            if (secondNumber % 2 == 0) {
 
                                 return true;
                             }
@@ -42,17 +44,45 @@ public class NumberTester {
                         };
                     } else if (firstNumber == 2) {
                         primeTester = (secondNumber) -> {
-                            return false;
-                        };
-                    } else if (firstNumber == 3) {
-                        palindromeTester = (secondNumber) -> {
-                            if (secondNumber % 2 == 0){
+                            if (secondNumber < 2) {
+                                return false;
+                            }
+
+                            ArrayList<Integer> allList = new ArrayList<>();
+                            for (int i = 2; i <= secondNumber; i++) {
+                                allList.add(i);
+                            }
+
+                            for (int i = 2; i < (allList.size()); i++) {
+                                for (int j = 1; j < (allList.size()); j++) {
+                                    if (allList.contains(i * j)) {
+                                        allList.remove((Integer) (i * j));
+                                    }
+                                }
+                            }
+
+                            if (allList.contains(secondNumber)) {
                                 return true;
                             }
                             return false;
                         };
+                    } else if (firstNumber == 3) {
+                        // palindrome Code von: https://www.baeldung.com/java-palindrome
+                        palindromeTester = (secondNumber) -> {
+                            String sNum = Integer.toString(secondNumber);
+                            int length = sNum.length();
+                            int forward = 0;
+                            int backward = length - 1;
+                            while (backward > forward) {
+                                char forwardChar = sNum.charAt(forward++);
+                                char backwardChar = sNum.charAt(backward--);
+                                if (forwardChar != backwardChar)
+                                    return false;
+                            }
+                            return true;
+                        };
                     } else {
-
+                        System.out.println("In der Datei sind ungueltige Zahlen vorhanden!");
                     }
                     index++;
                 }
@@ -78,10 +108,6 @@ public class NumberTester {
         return palindromeTester;
     }
 
-    public ArrayList<String> getDocumentList() {
-        return documentList;
-    }
-
     public void setOddTester(NumberTest oddTester) {
         this.oddTester = oddTester;
     }
@@ -95,6 +121,15 @@ public class NumberTester {
     }
 
     public void testFile() {
+        boolean od = false;
+        boolean pr = false;
+        boolean pa = false;
+        for (int i = 0; i < sNumberArray.length; i++) {
+            od = oddTester.testNumber(sNumberArray[i]);
+            pr = primeTester.testNumber(sNumberArray[i]);
+            pa = palindromeTester.testNumber(sNumberArray[i]);
+        }
+
 
     }
 }
