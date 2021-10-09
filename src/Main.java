@@ -6,45 +6,144 @@ public class Main {
 
         boolean running = true;
 
-        while (running){
+        while (running) {
             System.out.println("1 - Relational calculator\n" +
                     "2 - Vector calculator\n" +
                     "3 - Complex calculator\n" +
                     "4 - Exit program\n");
             int userInput = Integer.parseInt(scanner.nextLine());
 
+            if (userInput == 4) {
 
-            while (userInput != 1 || userInput != 2 || userInput != 3 || userInput != 4){
+                System.out.println("Das programm wird Beendet!");
+                running = false;
+                System.exit(0);
+            }
+            while (userInput != 1 && userInput != 2 && userInput != 3) {
                 System.out.println("Die Eingabe ist ungültig!");
                 System.out.println("Gib eine gültige Zahl ein!");
                 userInput = Integer.parseInt(scanner.nextLine());
-
             }
 
             double[] allNum = numInput();
             int op = operations();
             Number a = new Number(allNum[0], allNum[1]);
             Number b = new Number(allNum[2], allNum[3]);
-            switch (userInput){
+            Number conclusion = new Number(0, 0);
+            while (op == 5){
+                allNum = numInput();
+                op = operations();
+                a = new Number(allNum[0], allNum[1]);
+                b = new Number(allNum[2], allNum[3]);
+            }
+            switch (userInput) {
                 case 1:
-                     switch (op){
-                         case 1:
-                             AbstractCalculator rationalC = rationalC();
-                             rationalC.add(a, b);
-                             break;
-                         case 2:
-                             break;
-                         case 3:
-                             break;
-                         case 4:
-                             break;
-                         case 5:
-                             break;
-                     }
+                    switch (op) {
+                        case 1:
+                            AbstractCalculator rationalC = rationalC();
+                            conclusion = rationalC.add(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+
+                            break;
+                        case 2:
+                            rationalC = rationalC();
+                            conclusion = rationalC.subtract(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 3:
+                            rationalC = rationalC();
+                            conclusion = rationalC.multiply(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 4:
+                            rationalC = rationalC();
+                            conclusion = rationalC.divide(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 5:
+                            allNum = numInput();
+                            break;
+                    }
                     break;
                 case 2:
+                    switch (op) {
+                        case 1:
+                            AbstractCalculator vectorCalc = vectorCalc();
+                            conclusion = vectorCalc.add(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+
+                            break;
+                        case 2:
+                            vectorCalc = vectorCalc();
+                            conclusion = vectorCalc.subtract(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 3:
+                            vectorCalc = vectorCalc();
+                            conclusion = vectorCalc.multiply(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 4:
+                            vectorCalc = vectorCalc();
+                            conclusion = vectorCalc.divide(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 5:
+                            allNum = numInput();
+                            break;
+                    }
                     break;
                 case 3:
+                    switch (op) {
+                        case 1:
+                            AbstractCalculator complexCalc = complexCalc();
+                            conclusion = complexCalc.add(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+
+                            break;
+                        case 2:
+                            complexCalc = complexCalc();
+                            conclusion = complexCalc.subtract(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 3:
+                            complexCalc = complexCalc();
+                            conclusion = complexCalc.multiply(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 4:
+                            complexCalc = complexCalc();
+                            conclusion = complexCalc.divide(a, b);
+                            System.out.println("Solution: ");
+                            System.out.println("a = " + conclusion.getA());
+                            System.out.println("b = " + conclusion.getB());
+                            break;
+                        case 5:
+                            allNum = numInput();
+                            break;
+                    }
                     break;
                 case 4:
                     System.out.println("Das programm wird Beendet!");
@@ -52,6 +151,7 @@ public class Main {
                     System.exit(0);
                     break;
                 default:
+                    break;
             }
         }
 
@@ -62,25 +162,101 @@ public class Main {
         //rationalCalc.add(a, b);
     }
 
-    public static AbstractCalculator rationalC(){
+    public static AbstractCalculator rationalC() {
         AbstractCalculator rationalCalc = new RationalCalculator((x, y) -> {
-            double zaehler = x.getA()*y.getB()+y.getA()*x.getB();
-            double nenner = x.getB()*y.getB();
+            double zaehler = x.getA() * y.getB() + y.getA() * x.getB();
+            double nenner = x.getB() * y.getB();
 
             Brueche brueche = new Brueche(zaehler, nenner);
+            //brueche.ggt(zaehler, nenner);
             brueche.kuerzen();
-            System.out.println(zaehler +"/"+ nenner);
+            System.out.println(zaehler + "/" + nenner);
             return new Number(zaehler, nenner);
 
-        }, (x,y) -> {
+        }, (x, y) -> {
+            double zaehler = x.getA() * y.getB() - y.getA() * x.getB();
+            double nenner = x.getB() * y.getB();
 
-            return x;}, (x,y) -> {
-            return x;},(x,y) -> {
-            return x;});
+            Brueche brueche = new Brueche(zaehler, nenner);
+            //brueche.ggt(zaehler, nenner);
+            brueche.kuerzen();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        }, (x, y) -> {
+            double zaehler = x.getA() * y.getA();
+            double nenner = x.getB() * y.getB();
+
+            Brueche brueche = new Brueche(zaehler, nenner);
+            //brueche.ggt(zaehler, nenner);
+            brueche.kuerzen();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        }, (x, y) -> {
+            double zaehler = x.getA() * y.getB();
+            double nenner = x.getB() * y.getA();
+
+            Brueche brueche = new Brueche(zaehler, nenner);
+            //brueche.ggt(zaehler, nenner);
+            brueche.kuerzen();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        });
         return rationalCalc;
     }
 
-    public static double[] numInput(){
+    public static AbstractCalculator vectorCalc() {
+        AbstractCalculator vectorCalc = new VectorCalculator((x, y) -> {
+            double zaehler = x.getA()+y.getA();
+            double nenner = x.getB()+y.getB();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+
+        }, (x, y) -> {
+            double zaehler = x.getA()-y.getA();
+            double nenner = x.getB()-y.getB();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        }, (x, y) -> {
+            double zaehler = x.getA()*y.getA();
+            double nenner = x.getB()*y.getB();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        }, (x, y) -> {
+            double zaehler = x.getA()/y.getA();
+            double nenner = x.getB()/y.getB();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        });
+        return vectorCalc;
+    }
+
+    public static AbstractCalculator complexCalc() {
+        AbstractCalculator complexCalc = new ComplexCalculator((x, y) -> {
+            double zaehler = x.getA()+y.getA();
+            double nenner = x.getB()+y.getB();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+
+        }, (x, y) -> {
+            double zaehler = x.getA()-y.getA();
+            double nenner = x.getB()-y.getB();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        }, (x, y) -> {
+            double zaehler = x.getA()*y.getA()-x.getB()*y.getB();
+            double nenner = x.getA()*y.getB()+x.getB()*y.getA();
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        }, (x, y) -> {
+            double zaehler = x.getB()*y.getA()-x.getA()*y.getB();
+            double nenner = (Math.pow(y.getA(), 2.0)+Math.pow(y.getB(), 2.0));
+            System.out.println(zaehler + "/" + nenner);
+            return new Number(zaehler, nenner);
+        });
+        return complexCalc;
+    }
+
+    public static double[] numInput() {
         Scanner scanner = new Scanner(System.in);
         double[] allNumbs = new double[4];
         System.out.println("Enter number x a> ");
@@ -102,7 +278,7 @@ public class Main {
         }*/
     }
 
-    public static int operations(){
+    public static int operations() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1 - add");
         System.out.println("2 - subtract");

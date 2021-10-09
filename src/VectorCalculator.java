@@ -11,16 +11,16 @@ public class VectorCalculator  extends AbstractCalculator{
 
     @Override
     public Number subtract(Number a, Number b) {
-        return null;
+        return subtract.calc(a, b);
     }
 
     @Override
     public Number multiply(Number a, Number b) {
-        return null;
+        return multiply.calc(a, b);
     }
 
     @Override
     public Number divide(Number a, Number b) {
-        return null;
+        return divide.calc(a, b);
     }
 }

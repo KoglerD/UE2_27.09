@@ -1,5 +1,5 @@
 public class Brueche {
-    //code von https://www.java-forum.org/thema/bruch-kuerzen.114985/d
+    //code von https://www.java-forum.org/thema/bruch-kuerzen.114985/
     private double zaehler, nenner;
 
     public Brueche(double z, double n)
