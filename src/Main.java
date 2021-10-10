@@ -30,7 +30,7 @@ public class Main {
             Number a = new Number(allNum[0], allNum[1]);
             Number b = new Number(allNum[2], allNum[3]);
             Number conclusion = new Number(0, 0);
-            while (op == 5){
+            while (op == 5) {
                 allNum = numInput();
                 op = operations();
                 a = new Number(allNum[0], allNum[1]);
@@ -167,89 +167,90 @@ public class Main {
             double zaehler = x.getA() * y.getB() + y.getA() * x.getB();
             double nenner = x.getB() * y.getB();
 
-            Brueche brueche = new Brueche(zaehler, nenner);
-            //brueche.ggt(zaehler, nenner);
-            brueche.kuerzen();
+            Number num = kuerzen(nenner, zaehler);
             System.out.println(zaehler + "/" + nenner);
-            return new Number(zaehler, nenner);
+            return num;
+
+            //Brueche brueche = new Brueche(zaehler, nenner);
+            //brueche.ggt(zaehler, nenner);
+            //brueche.kuerzen();
 
         }, (x, y) -> {
             double zaehler = x.getA() * y.getB() - y.getA() * x.getB();
             double nenner = x.getB() * y.getB();
 
-            Brueche brueche = new Brueche(zaehler, nenner);
-            //brueche.ggt(zaehler, nenner);
-            brueche.kuerzen();
+            Number num = kuerzen(nenner, zaehler);
             System.out.println(zaehler + "/" + nenner);
-            return new Number(zaehler, nenner);
+            return num;
         }, (x, y) -> {
             double zaehler = x.getA() * y.getA();
             double nenner = x.getB() * y.getB();
 
-            Brueche brueche = new Brueche(zaehler, nenner);
-            //brueche.ggt(zaehler, nenner);
-            brueche.kuerzen();
+            Number num = kuerzen(nenner, zaehler);
             System.out.println(zaehler + "/" + nenner);
-            return new Number(zaehler, nenner);
+            return num;
         }, (x, y) -> {
             double zaehler = x.getA() * y.getB();
             double nenner = x.getB() * y.getA();
 
-            Brueche brueche = new Brueche(zaehler, nenner);
-            //brueche.ggt(zaehler, nenner);
-            brueche.kuerzen();
+            Number num = kuerzen(nenner, zaehler);
             System.out.println(zaehler + "/" + nenner);
-            return new Number(zaehler, nenner);
+            return num;
         });
         return rationalCalc;
     }
 
     public static AbstractCalculator vectorCalc() {
         AbstractCalculator vectorCalc = new VectorCalculator((x, y) -> {
-            double zaehler = x.getA()+y.getA();
-            double nenner = x.getB()+y.getB();
+            double zaehler = x.getA() + y.getA();
+            double nenner = x.getB() + y.getB();
+
+            Number num = kuerzen(nenner, zaehler);
             System.out.println(zaehler + "/" + nenner);
-            return new Number(zaehler, nenner);
+            return num;
 
         }, (x, y) -> {
-            double zaehler = x.getA()-y.getA();
-            double nenner = x.getB()-y.getB();
+            double zaehler = x.getA() - y.getA();
+            double nenner = x.getB() - y.getB();
+            Number num = kuerzen(nenner, zaehler);
             System.out.println(zaehler + "/" + nenner);
-            return new Number(zaehler, nenner);
+            return num;
         }, (x, y) -> {
-            double zaehler = x.getA()*y.getA();
-            double nenner = x.getB()*y.getB();
+            double zaehler = x.getA() * y.getA();
+            double nenner = x.getB() * y.getB();
+            Number num = kuerzen(nenner, zaehler);
             System.out.println(zaehler + "/" + nenner);
-            return new Number(zaehler, nenner);
+            return num;
         }, (x, y) -> {
-            double zaehler = x.getA()/y.getA();
-            double nenner = x.getB()/y.getB();
+            double zaehler = x.getA() / y.getA();
+            double nenner = x.getB() / y.getB();
+            Number num = kuerzen(nenner, zaehler);
             System.out.println(zaehler + "/" + nenner);
-            return new Number(zaehler, nenner);
+            return num;
         });
         return vectorCalc;
     }
 
     public static AbstractCalculator complexCalc() {
         AbstractCalculator complexCalc = new ComplexCalculator((x, y) -> {
-            double zaehler = x.getA()+y.getA();
-            double nenner = x.getB()+y.getB();
+            double zaehler = x.getA() + y.getA();
+            double nenner = x.getB() + y.getB();
             System.out.println(zaehler + "/" + nenner);
             return new Number(zaehler, nenner);
 
         }, (x, y) -> {
-            double zaehler = x.getA()-y.getA();
-            double nenner = x.getB()-y.getB();
+            double zaehler = x.getA() - y.getA();
+            double nenner = x.getB() - y.getB();
             System.out.println(zaehler + "/" + nenner);
             return new Number(zaehler, nenner);
         }, (x, y) -> {
-            double zaehler = x.getA()*y.getA()-x.getB()*y.getB();
-            double nenner = x.getA()*y.getB()+x.getB()*y.getA();
+            double zaehler = x.getA() * y.getA() - x.getB() * y.getB();
+            double nenner = x.getA() * y.getB() + x.getB() * y.getA();
             System.out.println(zaehler + "/" + nenner);
             return new Number(zaehler, nenner);
         }, (x, y) -> {
-            double zaehler = x.getB()*y.getA()-x.getA()*y.getB();
-            double nenner = (Math.pow(y.getA(), 2.0)+Math.pow(y.getB(), 2.0));
+            double zaehler = x.getB() * y.getA() - x.getA() * y.getB();
+            double nenner = (Math.pow(y.getA(), 2.0) + Math.pow(y.getB(), 2.0));
             System.out.println(zaehler + "/" + nenner);
             return new Number(zaehler, nenner);
         });
@@ -259,13 +260,13 @@ public class Main {
     public static double[] numInput() {
         Scanner scanner = new Scanner(System.in);
         double[] allNumbs = new double[4];
-        System.out.println("Enter number x a> ");
+        System.out.print("\nEnter number x a> ");
         allNumbs[0] = Double.parseDouble(scanner.nextLine());
-        System.out.println("Enter number x b> ");
+        System.out.print("\nEnter number x b> ");
         allNumbs[1] = Double.parseDouble(scanner.nextLine());
-        System.out.println("Enter number y a> ");
+        System.out.print("\nEnter number y a> ");
         allNumbs[2] = Double.parseDouble(scanner.nextLine());
-        System.out.println("Enter number y b> ");
+        System.out.print("\nEnter number y b> ");
         allNumbs[3] = Double.parseDouble(scanner.nextLine());
 
 
@@ -287,6 +288,20 @@ public class Main {
         System.out.println("5 - enter numbers again");
         int op = Integer.parseInt(scanner.nextLine());
         return op;
+    }
+
+    public static Number kuerzen(double nenner, double zaehler){
+        for (int i = 0; i < nenner; i++) {
+            for (int j = 0; j < nenner; j++) {
+                if(nenner%j == 0){
+                    if(zaehler%j == 0){
+                        nenner /= j;
+                        zaehler /= j;
+                    }
+                }
+            }
+        }
+        return new Number(zaehler, nenner);
     }
 
 }
